@@ -8,6 +8,8 @@ app = gui()
 app.setFont(12)
 
 
+class Count():
+    count = 0
 
 def check_json_file():
     if os.path.isfile("to_do_list.json"):
@@ -29,6 +31,8 @@ def add_data_to_screen():
         
         
         app.setMessage("todo", items_list[2:])
+            
+            
 
 
 def submit_item(button):
@@ -70,7 +74,5 @@ app.addLabelEntry("Item")
 app.addButtons(["Submit", "Cancel"], submit_item)
 app.addMessage("todo", "")
 app.go()
-
-
 
 # print(dir(appJar.appjar))
