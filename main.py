@@ -11,23 +11,24 @@ app.setFont(12)
 
 def check_json_file():
     if os.path.isfile("to_do_list.json"):
-        print('hello')
         return 
     else:
         with open("to_do_list.json", "w") as file:
-            json.dump([], file)
+            json.dump({1:"", 2:""}, file)
             return
 
 def add_data_to_screen():
     with open("to_do_list.json", "r") as file:
         existing_data = json.load(file)
-        the_string = ""
-  
+        print(existing_data)
         
-        for item in existing_data:
-            the_string += item + " "
-
-        app.setMessage("todo", the_string)
+        
+        items_list = []
+        for item in existing_data.values():
+            items_list.append(item)
+        
+        
+        app.setMessage("todo", items_list[2:])
 
 
 def submit_item(button):
@@ -37,22 +38,26 @@ def submit_item(button):
         item = app.getEntry("Item")
         check_json_file()
         
-
-        existing_data = [] 
-        with open("to_do_list.json", "r") as file:
-            for i in file:
-                print(i)
-                existing_data.append(i)
         
-        existing_data.append(item) 
+        with open("to_do_list.json", "r") as file:
+            starting_data = json.load(file)
 
+            keys = list(starting_data.keys())
+            
+            revised_keys = [int(key) for key in keys]
+            starting_data[max(revised_keys) +1] = item
+        
+       
+        with open("to_do_list.json", "w") as file:
+            json.dump(starting_data, file)
+        
 
 
         
       
         
-        with open("to_do_list.json", "w") as file:
-            json.dump(existing_data, file)
+        # with open("to_do_list.json", "w") as file:
+        #     json.dump(existing_data, file)
 
         add_data_to_screen()
 
