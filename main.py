@@ -9,7 +9,14 @@ app.setFont(12)
 
 
 class Count():
-    count = 0
+    def __init__(self):
+        self.count = 0
+    
+    def getCount(self):
+        return self.count
+    
+    def setCount(self):
+        self.count +=1
 
 def check_json_file():
     if os.path.isfile("to_do_list.json"):
@@ -54,8 +61,9 @@ def submit_item(button):
        
         with open("to_do_list.json", "w") as file:
             json.dump(starting_data, file)
-        
 
+        running_count.setCount()
+        print(running_count.getCount())
 
         
       
@@ -67,12 +75,13 @@ def submit_item(button):
 
             
     
-
+running_count = Count()
 app.addLabel("title", "Welcome to appJar")
 app.setLabelBg("title", "red")
 app.addLabelEntry("Item")
 app.addButtons(["Submit", "Cancel"], submit_item)
 app.addMessage("todo", "")
+
 app.go()
 
 # print(dir(appJar.appjar))
