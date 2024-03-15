@@ -18,6 +18,11 @@ class Count():
     def setCount(self):
         self.count +=1
 
+
+def create_message():
+    app.addMessage("trying this out", "dasfsadf")
+
+
 def check_json_file():
     if os.path.isfile("to_do_list.json"):
         return 
@@ -42,7 +47,7 @@ def add_data_to_screen():
             
 
 
-def submit_item(button):
+def submit_item(button, running_count):
     if button == "Cancel":
         app.stop()
     else:
@@ -64,6 +69,7 @@ def submit_item(button):
 
         running_count.setCount()
         print(running_count.getCount())
+        create_message()
 
         
       
@@ -79,7 +85,7 @@ running_count = Count()
 app.addLabel("title", "Welcome to appJar")
 app.setLabelBg("title", "red")
 app.addLabelEntry("Item")
-app.addButtons(["Submit", "Cancel"], submit_item)
+app.addButtons(["Submit", "Cancel"], lambda button: submit_item(button, running_count))
 app.addMessage("todo", "")
 
 app.go()
