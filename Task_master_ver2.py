@@ -15,7 +15,9 @@ class Test_class():
         self.running_count = running_count
         # self.id = len(test_instances)
         app.addLabel(str(self.running_count), item, self.running_count +4, 0)
-        app.addButton("Button " + str(button_count), lambda button, btn="Button " + str(button_count): delete_button(btn, test_instances))
+        app.button("PRESS ME", press, colspan=2)
+        app.button()
+
         
 
     
@@ -32,6 +34,11 @@ class Count():
     
     def setCount(self):
         self.count +=1
+
+
+def press():
+    app.label(str(randint(0, 9)), bg=app.RANDOM_COLOUR(), fg=app.RANDOM_COLOUR())
+
 
 def delete_button(button_name, test_instances):
     
@@ -79,7 +86,7 @@ def test_class(item, running_count, test_instances):
     print("this is what is being sent", item)
     test_instances.append(Test_class(item, running_count.count))
     button_count = running_count.count  
-    # app.addButton("Button " + str(button_count), lambda button, btn="Button " + str(button_count): delete_button(btn, test_instances))
+    app.addButton("Button " + str(button_count), lambda button, btn="Button " + str(button_count): delete_button(btn, test_instances))
     running_count.setCount()
     return test_instances
 
@@ -136,5 +143,8 @@ app.addMessage("todo", "")
 set_up_count()
 
 app.go()
+
+import inspect
+print(inspect.getsource(app.button))
 
 # print(dir(appJar.appjar))
