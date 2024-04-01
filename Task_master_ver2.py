@@ -2,10 +2,11 @@ from appJar import gui
 import appJar
 import json
 import os
+import math
 
 app = gui()
 app.setFont(12)
-app.setSize("Fullscreen")
+# app.setSize(800, 600)
 # app.configure(bg='white', fg='yellow', font={'size':20, 'family':'Helvetica'})
 
 test_instances = []
@@ -14,12 +15,10 @@ class Test_class():
     def __init__(self,item, running_count):
         self.running_count = running_count
         # self.id = len(test_instances)
-        app.addLabel(str(self.running_count), item, self.running_count +4, 0)
-        app.button("PRESS ME", press, colspan=2)
-        app.button()
-
-        
-
+        app.addLabel(str(self.running_count), item, row = self.running_count, column = 3)
+        app.addButton("Button " + str(self.running_count), lambda button, btn="Button " + str(self.running_count): delete_button(btn, test_instances), self.running_count, column = 2)
+        # app.button("PRESS ME", delete_button(), row = self.running_count, column = 2)
+        # app.button()
     
     def add_to_list(self):
         test_instances.append(self)
@@ -37,7 +36,7 @@ class Count():
 
 
 def press():
-    app.label(str(randint(0, 9)), bg=app.RANDOM_COLOUR(), fg=app.RANDOM_COLOUR())
+    app.label(str(9), bg=app.RANDOM_COLOUR(), fg=app.RANDOM_COLOUR())
 
 
 def delete_button(button_name, test_instances):
@@ -86,7 +85,7 @@ def test_class(item, running_count, test_instances):
     print("this is what is being sent", item)
     test_instances.append(Test_class(item, running_count.count))
     button_count = running_count.count  
-    app.addButton("Button " + str(button_count), lambda button, btn="Button " + str(button_count): delete_button(btn, test_instances))
+    # app.addButton("Button " + str(button_count), lambda button, btn="Button " + str(button_count): delete_button(btn, test_instances))
     running_count.setCount()
     return test_instances
 
@@ -133,10 +132,11 @@ def set_up_count():
 
 running_count = Count()
 
-app.addLabel("title", "Welcome to appJar")
+app.addLabel("title", "Welcome to appJar", row = 0, column=0)
 app.setLabelBg("title", "yellow")
 app.addLabelEntry("Item")
 # app.addButtons(["Submit", "Cancel"], lambda button: submit_item(button, running_count))
+
 app.addButtons(["test", "Cancel"], lambda button: testing_button(button, test_instances))
 app.addMessage("todo", "")
 
